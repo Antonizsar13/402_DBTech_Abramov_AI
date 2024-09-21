@@ -7,7 +7,6 @@ if (!file_exists($readmeFile)) {
     exit(1);
 }
 
-
 $readmeContent = file_get_contents($readmeFile);
 echo $readmeContent;
 
