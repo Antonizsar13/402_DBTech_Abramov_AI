@@ -1,5 +1,7 @@
 {
     "name": "antonizsar13/minesweeper",
+    "type": "project",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Anton\\Minesweeper\\": "src/"

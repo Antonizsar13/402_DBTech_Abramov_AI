@@ -8,7 +8,7 @@ class Database
 
     public function __construct()
     {
-        $this->pdo = new \PDO('sqlite:minesweeper.db');
+        $this->pdo = new \PDO('sqlite:bin/minesweeper.db');
         $this->createTables();
     }
 
@@ -82,7 +82,7 @@ class Database
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function replayGame($id)
+    public function getGameById($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM games WHERE id = ?");
         $stmt->execute([$id]);

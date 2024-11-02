@@ -57,6 +57,7 @@ class Game
 
     public function play(int $x, int $y)
     {
+        $this->gameMap[$y][$x] = $this->map[$y][$x];
         if ($this->map[$y][$x] == '*') {
             $this->gameOver = true;
             return 'lost';
@@ -115,11 +116,18 @@ class Game
         return true;
     }
 
-    public function getMap() {
-        $this->map;
+    public function getMap()
+    {
+        return $this->map;
     }
 
-    public function getMines() {
-        $this->mines;
+    public function setMap($map)
+    {
+        $this->map = $map;
+    }
+
+    public function getMines()
+    {
+        return $this->mines;
     }
 }

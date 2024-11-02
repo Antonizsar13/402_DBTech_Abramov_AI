@@ -17,9 +17,11 @@ switch ($mode) {
     case '-n':
         $size = isset($params[0]) ? (int)$params[0] : 10;
         $mines = isset($params[1]) ? (int)$params[1] : 10;
+        $nameUser = isset($params[2]) ? $params[2] : 'NoName';
+        
         $game = new Game($size, $mines);
         $controller = new Controller($game, new View(), $db);
-        $controller->startGame();
+        $controller->startGame($nameUser);
         break;
 
     case '--list':
@@ -31,22 +33,23 @@ switch ($mode) {
 
     case '--replay':
     case '-r':
-        // if (isset($params[0])) {
-        //     $gameData = $db->getGameById($params[0]);
-        //     $controller = new Controller(new Game($gameData['size'], $gameData['mines']), new View());
-        //     $controller->replayGame($gameData);
-        // } else {
-        //     echo "Please provide a game ID to replay.\n";
-        // }
+        if (isset($params[0])) {
+            $gameData = $db->getGameById($params[0]);
+            var_dump($gameData['size_map']);
+            $controller = new Controller(new Game($gameData['size_map'], $gameData['mines']), new View());
+            $controller->replayGame($gameData);
+        } else {
+            echo "Please provide a game ID to replay.\n";
+        }
         break;
 
     case '--help':
     case '-h':
         echo "Usage:\n";
-        echo "--new (-n)           Start a new game.\n";
-        echo "--list (-l)         List all saved games.\n";
-        echo "--replay id (-r id) Replay a saved game by its ID.\n";
-        echo "--help (-h)         Show this help message.\n";
+        echo "--new (-n) size mines nameUser         Start a new game.\n";
+        echo "--list (-l)                        List all saved games.\n";
+        echo "--replay id (-r id)                Replay a saved game by its ID.\n";
+        echo "--help (-h)                        Show this help message.\n";
         break;
 
     default:
