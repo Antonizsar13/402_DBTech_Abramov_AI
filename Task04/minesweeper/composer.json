@@ -1,0 +1,14 @@
+{
+    "name": "antonizsar13/minesweeper",
+    "autoload": {
+        "psr-4": {
+            "Anton\\Minesweeper\\": "src/"
+        }
+    },
+    "bin": [
+        "bin/minesweeper"
+    ],
+    "require": {
+        "wp-cli/php-cli-tools": "^0.12.0"
+    }
+}

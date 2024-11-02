@@ -1,0 +1,55 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use Anton\Minesweeper\Game;
+use Anton\Minesweeper\View;
+use Anton\Minesweeper\Controller;
+use Anton\Minesweeper\Database;
+
+$mode = isset($argv[1]) ? $argv[1] : '--new';
+$params = array_slice($argv, 2); 
+
+$db = new Database();
+
+switch ($mode) {
+    case '--new':
+    case '-n':
+        $size = isset($params[0]) ? (int)$params[0] : 10;
+        $mines = isset($params[1]) ? (int)$params[1] : 10;
+        $game = new Game($size, $mines);
+        $controller = new Controller($game, new View(), $db);
+        $controller->startGame();
+        break;
+
+    case '--list':
+    case '-l':
+        $games = $db->listGames();
+        $view = new View();
+        $view->showGamesList($games);
+        break;
+
+    case '--replay':
+    case '-r':
+        // if (isset($params[0])) {
+        //     $gameData = $db->getGameById($params[0]);
+        //     $controller = new Controller(new Game($gameData['size'], $gameData['mines']), new View());
+        //     $controller->replayGame($gameData);
+        // } else {
+        //     echo "Please provide a game ID to replay.\n";
+        // }
+        break;
+
+    case '--help':
+    case '-h':
+        echo "Usage:\n";
+        echo "--new (-n)           Start a new game.\n";
+        echo "--list (-l)         List all saved games.\n";
+        echo "--replay id (-r id) Replay a saved game by its ID.\n";
+        echo "--help (-h)         Show this help message.\n";
+        break;
+
+    default:
+        echo "Invalid command. Use --help for usage information.\n";
+        break;
+}
