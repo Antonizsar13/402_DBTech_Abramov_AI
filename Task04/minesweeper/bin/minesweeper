@@ -8,7 +8,7 @@ use Anton\Minesweeper\Controller;
 use Anton\Minesweeper\Database;
 
 $mode = isset($argv[1]) ? $argv[1] : '--new';
-$params = array_slice($argv, 2); 
+$params = array_slice($argv, 2);
 
 $db = new Database();
 
@@ -18,7 +18,7 @@ switch ($mode) {
         $size = isset($params[0]) ? (int)$params[0] : 10;
         $mines = isset($params[1]) ? (int)$params[1] : 10;
         $nameUser = isset($params[2]) ? $params[2] : 'NoName';
-        
+
         $game = new Game($size, $mines);
         $controller = new Controller($game, new View(), $db);
         $controller->startGame($nameUser);

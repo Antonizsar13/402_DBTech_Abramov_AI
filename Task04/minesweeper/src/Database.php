@@ -42,8 +42,8 @@ class Database
         $mines = $gameData['mines'];
         $map = $gameData['map'];
         $gameStatus = $gameData['game_status'];
-        $moves = $gameData['moves']; 
-        
+        $moves = $gameData['moves'];
+
         $stmt = $this->pdo->prepare("INSERT OR IGNORE INTO games (date, player_name, size_map, mines, map, game_status) 
                                   VALUES (:date, :player_name, :size_map, :mines, :map, :game_status)");
         $stmt->execute([
@@ -52,7 +52,7 @@ class Database
             ':size_map' => $sizeMap,
             ':mines' => $mines,
             ':map' => json_encode($map),
-            ':game_status' => $gameStatus 
+            ':game_status' => $gameStatus
         ]);
 
         $id = $this->pdo->lastInsertId();
@@ -60,7 +60,8 @@ class Database
         $this->saveMoves($id, $moves);
     }
 
-    private function saveMoves($id, $moves){
+    private function saveMoves($id, $moves)
+    {
         if ($id && !empty($moves)) {
             $stmt = $this->pdo->prepare("INSERT INTO moves (game_id, move_number, x, y, result) 
                                        VALUES (:game_id, :move_number, :x, :y, :result)");
@@ -70,7 +71,7 @@ class Database
                     ':move_number' => $move['move_number'],
                     ':x' => $move['x'],
                     ':y' => $move['y'],
-                    ':result' => $move['result'] 
+                    ':result' => $move['result']
                 ]);
             }
         }

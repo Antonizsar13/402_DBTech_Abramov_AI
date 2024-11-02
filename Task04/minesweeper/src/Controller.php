@@ -24,7 +24,7 @@ class Controller
         }
         while (!$this->game->isGameOver()) {
             $this->view->showMap($this->game->getGameMap());
-            
+
             $input = $this->view->promptCoordinates();
             if (strpos($input, ',') === false) {
                 $this->view->invalidInput();
@@ -34,14 +34,14 @@ class Controller
             list($x, $y) = explode(',', $input);
             $x = (int)trim($x);
             $y = (int)trim($y);
-            
+
             if ($x < 0 || $x >= $this->game->getSize() || $y < 0 || $y >= $this->game->getSize()) {
                 $this->view->invalidCoordinates();
                 continue;
             }
 
             $move++;
-            
+
             $result = $this->game->play($x, $y);
 
             $moves[] = [
@@ -77,7 +77,6 @@ class Controller
         $this->view->showMap($this->game->getGameMap());
 
         foreach ($gameData['moves'] as $move) {
-            
             $x = $move['x'];
             $y = $move['y'];
 
@@ -88,6 +87,5 @@ class Controller
                 break;
             }
         }
-
     }
 }

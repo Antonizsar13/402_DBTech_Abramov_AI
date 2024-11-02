@@ -97,7 +97,6 @@ class Game
             if (isset($this->map[$newLine][$newColumn]) && $this->gameMap[$newLine][$newColumn] == '?') {
                 $this->gameMap[$newLine][$newColumn] = $this->map[$newLine][$newColumn];
                 if ($this->map[$newLine][$newColumn] == 0) {
-
                     $this->openZeroCells($newColumn, $newLine);
                 }
             }
